@@ -12,17 +12,11 @@
         <item>資料夾</item>
     </string-array>
 
-    <string-array name="text_suffix">
-        <item>.txt</item>
-        <item>.json</item>
-        <item>.xml</item>
-    </string-array>
-
     <string-array name="theme_mode">
         <item>跟隨系統</item>
         <item>亮色主題</item>
         <item>暗色主題</item>
-        <item>E-Ink(墨水屏)</item>
+        <item>E-Ink(墨水螢幕)</item>
     </string-array>
 
     <string-array name="NavBarColors">
@@ -40,34 +34,11 @@
         <item>常亮</item>
     </string-array>
 
-    <string-array name="screen_direction_title">
-        <item>@string/screen_unspecified</item>
-        <item>@string/screen_portrait</item>
-        <item>@string/screen_landscape</item>
-        <item>@string/screen_sensor</item>
-        <item>反向直向</item>
-    </string-array>
-
     <string-array name="double_page_title">
         <item>全域單頁</item>
         <item>全域雙頁</item>
         <item>橫向雙頁</item>
-        <item>平板/橫向雙页</item>
-    </string-array>
-
-    <string-array name="progress_bar_behavior_title">
-        <item>調整本章頁數</item>
-        <item>調整章節位置</item>
-    </string-array>
-
-    <string-array name="icon_names">
-        <item>iconMain</item>
-        <item>icon1</item>
-        <item>icon2</item>
-        <item>icon3</item>
-        <item>icon4</item>
-        <item>icon5</item>
-        <item>icon6</item>
+        <item>平板/橫向雙頁</item>
     </string-array>
 
     <string-array name="chinese_mode">
@@ -114,6 +85,17 @@
         <item>書源</item>
         <item>訂閱源</item>
         <item>取代規則</item>
+    </string-array>
+
+    <string-array name="tip_color">
+        <item>跟隨內容</item>
+        <item>自訂</item>
+    </string-array>
+
+    <string-array name="tip_divider_color">
+        <item>預設</item>
+        <item>跟隨內容</item>
+        <item>自訂</item>
     </string-array>
 
 </resources>

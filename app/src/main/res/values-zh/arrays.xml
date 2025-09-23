@@ -12,24 +12,11 @@
         <item>文件夹</item>
     </string-array>
 
-    <string-array name="text_suffix">
-        <item>.txt</item>
-        <item>.json</item>
-        <item>.xml</item>
-    </string-array>
-
     <string-array name="theme_mode">
         <item>跟随系统</item>
         <item>亮色主题</item>
         <item>暗色主题</item>
         <item>E-Ink(墨水屏)</item>
-    </string-array>
-
-    <string-array name="double_page_title">
-        <item>全局单页</item>
-        <item>全局双页</item>
-        <item>横屏双页</item>
-        <item>平板/横屏双页</item>
     </string-array>
 
     <string-array name="NavBarColors">
@@ -47,14 +34,12 @@
         <item>常亮</item>
     </string-array>
 
-    <string-array name="icon_names">
-        <item>iconMain</item>
-        <item>icon1</item>
-        <item>icon2</item>
-        <item>icon3</item>
-        <item>icon4</item>
-        <item>icon5</item>
-        <item>icon6</item>
+
+    <string-array name="double_page_title">
+        <item>全局单页</item>
+        <item>全局双页</item>
+        <item>横屏双页</item>
+        <item>平板/横屏双页</item>
     </string-array>
 
     <string-array name="chinese_mode">
