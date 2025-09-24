@@ -4,6 +4,7 @@ import cn.hutool.crypto.symmetric.AES
 import com.script.ScriptBindings
 import com.script.buildScriptBindings
 import com.script.rhino.RhinoScriptEngine
+import io.legado.app.R
 import io.legado.app.constant.AppConst
 import io.legado.app.constant.AppLog
 import io.legado.app.data.entities.rule.RowUi
@@ -20,6 +21,7 @@ import io.legado.app.utils.fromJsonObject
 import io.legado.app.utils.has
 import io.legado.app.utils.printOnDebug
 import org.intellij.lang.annotations.Language
+import splitties.init.appCtx
 
 /**
  * 可在js里调用,source.xxx()
@@ -171,7 +173,7 @@ interface BaseSource : JsExtensions {
             val cache = CacheManager.get("userInfo_${getKey()}") ?: return null
             return AES(key).decryptStr(cache)
         } catch (e: Exception) {
-            AppLog.put("获取登陆信息出错", e)
+            AppLog.put(appCtx.getString(R.string.get_login_info_error), e)
             return null
         }
     }

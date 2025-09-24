@@ -19,6 +19,7 @@ import io.legado.app.lib.theme.primaryColor
 import io.legado.app.ui.widget.recycler.VerticalDivider
 import io.legado.app.utils.*
 import io.legado.app.utils.viewbindingdelegate.viewBinding
+import splitties.init.appCtx
 
 class ThemeListDialog : BaseDialogFragment(R.layout.dialog_recycler_view),
     Toolbar.OnMenuItemClickListener {
@@ -62,7 +63,7 @@ class ThemeListDialog : BaseDialogFragment(R.layout.dialog_recycler_view),
                     if (ThemeConfig.addConfig(it)) {
                         initData()
                     } else {
-                        toastOnUi("格式不对,添加失败")
+                        toastOnUi(R.string.format_not_correct_add_failed)
                     }
                 }
             }
@@ -82,7 +83,7 @@ class ThemeListDialog : BaseDialogFragment(R.layout.dialog_recycler_view),
 
     fun share(index: Int) {
         val json = GSON.toJson(ThemeConfig.configList[index])
-        requireContext().share(json, "主题分享")
+        requireContext().share(json, appCtx.getString(R.string.theme_share))
     }
 
     inner class Adapter(context: Context) :

@@ -140,7 +140,7 @@ class SourceLoginDialog : BaseDialogFragment(R.layout.dialog_login, true) {
                     }
                 }.onFailure { e ->
                     ensureActive()
-                    AppLog.put("LoginUI Button ${rowUi.name} JavaScript error", e)
+                    AppLog.put(appCtx.getString(R.string.source_login_button_error, rowUi.name), e)
                 }
             }
         }
@@ -178,8 +178,8 @@ class SourceLoginDialog : BaseDialogFragment(R.layout.dialog_login, true) {
                         dismiss()
                     }
                 } catch (e: Exception) {
-                    AppLog.put("登录出错\n${e.localizedMessage}", e)
-                    context?.toastOnUi("登录出错\n${e.localizedMessage}")
+                    AppLog.put(appCtx.getString(R.string.login_error, e.localizedMessage), e)
+                    context?.toastOnUi(appCtx.getString(R.string.login_error, e.localizedMessage))
                     e.printOnDebug()
                 }
             }

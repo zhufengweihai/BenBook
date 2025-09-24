@@ -3,6 +3,7 @@ package io.legado.app.ui.book.read.config
 import android.app.Application
 import android.net.Uri
 import android.speech.tts.TextToSpeech
+import io.legado.app.R
 import io.legado.app.base.BaseViewModel
 import io.legado.app.data.appDb
 import io.legado.app.data.entities.HttpTTS
@@ -12,6 +13,7 @@ import io.legado.app.utils.isJsonArray
 import io.legado.app.utils.isJsonObject
 import io.legado.app.utils.readText
 import io.legado.app.utils.toastOnUi
+import splitties.init.appCtx
 
 class SpeakEngineViewModel(application: Application) : BaseViewModel(application) {
 
@@ -32,9 +34,9 @@ class SpeakEngineViewModel(application: Application) : BaseViewModel(application
         execute {
             import(uri.readText(context))
         }.onSuccess {
-            context.toastOnUi("导入成功")
+            context.toastOnUi(R.string.import_success)
         }.onError {
-            context.toastOnUi("导入失败\n${it.localizedMessage}")
+            context.toastOnUi(appCtx.getString(R.string.import_failed, it.localizedMessage))
         }
     }
 
@@ -53,7 +55,7 @@ class SpeakEngineViewModel(application: Application) : BaseViewModel(application
             }
 
             else -> {
-                throw NoStackTraceException("格式不对")
+                throw NoStackTraceException(appCtx.getString(R.string.format_error))
             }
         }
     }

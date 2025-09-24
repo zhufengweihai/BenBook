@@ -27,6 +27,7 @@ import io.legado.app.utils.printOnDebug
 import io.legado.app.utils.toastOnUi
 import kotlinx.coroutines.sync.Semaphore
 import kotlinx.coroutines.sync.withPermit
+import splitties.init.appCtx
 import java.io.File
 import java.io.FileOutputStream
 import java.io.OutputStreamWriter
@@ -90,10 +91,10 @@ class BookshelfViewModel(application: Application) : BaseViewModel(application) 
             if (successCount > 0) {
                 context.toastOnUi(R.string.success)
             } else {
-                context.toastOnUi("添加网址失败")
+                context.toastOnUi(appCtx.getString(R.string.add_url_failed))
             }
         }.onError {
-            AppLog.put("添加网址出错\n${it.localizedMessage}", it, true)
+            AppLog.put(appCtx.getString(R.string.add_url_error, it.localizedMessage), it, true)
         }.onFinally {
             addBookProgressLiveData.postValue(-1)
         }
@@ -120,11 +121,11 @@ class BookshelfViewModel(application: Application) : BaseViewModel(application) 
                     writer.close()
                 }
                 file
-            } ?: throw NoStackTraceException("书籍不能为空")
+            } ?: throw NoStackTraceException(context.getString(R.string.book_cannot_null))
         }.onSuccess {
             success(it)
         }.onError {
-            context.toastOnUi("导出书籍出错\n${it.localizedMessage}")
+            context.toastOnUi(context.getString(R.string.export_book_error, it.localizedMessage))
         }
     }
 
@@ -145,7 +146,7 @@ class BookshelfViewModel(application: Application) : BaseViewModel(application) 
                 }
 
                 else -> {
-                    throw NoStackTraceException("格式不对")
+                    throw NoStackTraceException(appCtx.getString(R.string.format_error))
                 }
             }
         }.onError {

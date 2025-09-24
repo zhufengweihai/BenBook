@@ -78,7 +78,7 @@ class BgTextConfigDialog : BaseDialogFragment(R.layout.dialog_read_bg_text) {
     private val adapter by lazy { BgAdapter(requireContext(), secondaryTextColor) }
     private var primaryTextColor = 0
     private var secondaryTextColor = 0
-    private val importFormNet = "网络导入"
+    private val importFormNet = appCtx.getString(R.string.import_from_network)
     private val selectBgImage = registerForActivityResult(SelectImageContract()) {
         it.uri?.let { uri ->
             setBgFromUri(uri)
@@ -163,7 +163,7 @@ class BgTextConfigDialog : BaseDialogFragment(R.layout.dialog_read_bg_text) {
 
     @SuppressLint("InflateParams")
     private fun initData() = with(ReadBookConfig.durConfig) {
-        binding.tvName.text = name.ifBlank { "文字" }
+        binding.tvName.text = name.ifBlank { appCtx.getString(R.string.text) }
         binding.swDarkStatusIcon.isChecked = curStatusIconDark()
         binding.swUnderline.isChecked = underline
         binding.sbBgAlpha.progress = bgAlpha
@@ -190,7 +190,7 @@ class BgTextConfigDialog : BaseDialogFragment(R.layout.dialog_read_bg_text) {
         binding.tvRestore.setOnClickListener {
             val defaultConfigs = DefaultData.readConfigs
             val layoutNames = defaultConfigs.map { it.name }
-            context?.selector("选择预设布局", layoutNames) { _, i ->
+            context?.selector(R.string.preset_layout, layoutNames) { _, i ->
                 if (i >= 0) {
                     ReadBookConfig.durConfig = defaultConfigs[i].copy()
                     initData()
@@ -246,7 +246,7 @@ class BgTextConfigDialog : BaseDialogFragment(R.layout.dialog_read_bg_text) {
                 postEvent(EventBus.UP_CONFIG, arrayListOf(1, 2, 5))
                 dismissAllowingStateLoss()
             } else {
-                toastOnUi("数量已是最少,不能删除.")
+                toastOnUi(R.string.cannot_delete_minimum_number)
             }
         }
         binding.sbBgAlpha.setOnSeekBarChangeListener(object : SeekBarChangeListener {
@@ -338,7 +338,7 @@ class BgTextConfigDialog : BaseDialogFragment(R.layout.dialog_read_bg_text) {
                 }
             }
         }.onSuccess {
-            toastOnUi("导出成功, 文件名为 $exportFileName")
+            toastOnUi(appCtx.getString(R.string.export_file_success, exportFileName))
         }.onError {
             it.printOnDebug()
             AppLog.put("导出失败:${it.localizedMessage}", it)
@@ -348,7 +348,7 @@ class BgTextConfigDialog : BaseDialogFragment(R.layout.dialog_read_bg_text) {
 
     @SuppressLint("InflateParams")
     private fun importNetConfigAlert() {
-        alert("输入地址") {
+        alert(R.string.input_address) {
             val alertBinding = DialogEditTextBinding.inflate(layoutInflater)
             customView { alertBinding.root }
             okButton {
@@ -387,7 +387,7 @@ class BgTextConfigDialog : BaseDialogFragment(R.layout.dialog_read_bg_text) {
         }.onSuccess {
             ReadBookConfig.durConfig = it
             postEvent(EventBus.UP_CONFIG, arrayListOf(1, 2, 5))
-            toastOnUi("导入成功")
+            toastOnUi(R.string.save_success)
         }.onError {
             it.printOnDebug()
             longToast("导入失败:${it.localizedMessage}")

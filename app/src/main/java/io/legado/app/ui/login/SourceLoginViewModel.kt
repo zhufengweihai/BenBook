@@ -3,12 +3,14 @@ package io.legado.app.ui.login
 import android.app.Application
 import android.content.Intent
 import com.script.rhino.runScriptWithContext
+import io.legado.app.R
 import io.legado.app.base.BaseViewModel
 import io.legado.app.constant.AppLog
 import io.legado.app.data.appDb
 import io.legado.app.data.entities.BaseSource
 import io.legado.app.exception.NoStackTraceException
 import io.legado.app.utils.toastOnUi
+import splitties.init.appCtx
 
 class SourceLoginViewModel(application: Application) : BaseViewModel(application) {
 
@@ -18,7 +20,7 @@ class SourceLoginViewModel(application: Application) : BaseViewModel(application
     fun initData(intent: Intent, success: (bookSource: BaseSource) -> Unit, error: () -> Unit) {
         execute {
             val sourceKey = intent.getStringExtra("key")
-                ?: throw NoStackTraceException("没有参数")
+                ?: throw NoStackTraceException(appCtx.getString(R.string.no_param))
             when (intent.getStringExtra("type")) {
                 "bookSource" -> source = appDb.bookSourceDao.getBookSource(sourceKey)
                 "rssSource" -> source = appDb.rssSourceDao.getByKey(sourceKey)
@@ -32,7 +34,7 @@ class SourceLoginViewModel(application: Application) : BaseViewModel(application
             if (it != null) {
                 success.invoke(it)
             } else {
-                context.toastOnUi("未找到书源")
+                context.toastOnUi(R.string.source_not_found)
             }
         }.onError {
             error.invoke()

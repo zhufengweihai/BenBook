@@ -32,7 +32,7 @@ class AboutActivity : BaseActivity<ActivityAboutBinding>() {
             kotlin.runCatching {
                 val span = ForegroundColorSpan(accentColor)
                 val spannableString = SpannableString(binding.tvAppSummary.text)
-                val gzh = getString(R.string.legado_gzh)
+                val gzh = getString(R.string.app_name)
                 val start = spannableString.indexOf(gzh)
                 spannableString.setSpan(
                     span, start, start + gzh.length,

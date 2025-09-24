@@ -98,7 +98,7 @@ class CheckSourceService : BaseService() {
 
     private fun check(ids: List<String>) {
         if (checkJob?.isActive == true) {
-            toastOnUi("已有书源在校验,等完成后再试")
+            toastOnUi(R.string.check_source_valid)
             return
         }
         checkJob = lifecycleScope.launch(searchCoroutine) {
@@ -137,16 +137,16 @@ class CheckSourceService : BaseService() {
                 doCheckSource(source)
             }
         }.onSuccess {
-            Debug.updateFinalMessage(source.bookSourceUrl, "校验成功")
+            Debug.updateFinalMessage(source.bookSourceUrl, appCtx.getString(R.string.check_success))
         }.onFailure {
             coroutineContext.ensureActive()
             when (it) {
-                is TimeoutCancellationException -> source.addGroup("校验超时")
-                is ScriptException, is WrappedException -> source.addGroup("js失效")
-                !is NoStackTraceException -> source.addGroup("网站失效")
+                is TimeoutCancellationException -> source.addGroup(appCtx.getString(R.string.check_timeout))
+                is ScriptException, is WrappedException -> source.addGroup(appCtx.getString(R.string.js_invalid))
+                !is NoStackTraceException -> source.addGroup(appCtx.getString(R.string.website_invalid))
             }
             source.addErrorComment(it)
-            Debug.updateFinalMessage(source.bookSourceUrl, "校验失败:${it.localizedMessage}")
+            Debug.updateFinalMessage(source.bookSourceUrl, appCtx.getString(R.string.check_failed, it.localizedMessage))
         }
         source.respondTime = Debug.getRespondTime(source.bookSourceUrl)
     }
@@ -159,16 +159,16 @@ class CheckSourceService : BaseService() {
         if (CheckSource.checkSearch) {
             val searchWord = source.getCheckKeyword(CheckSource.keyword)
             if (!source.searchUrl.isNullOrBlank()) {
-                source.removeGroup("搜索链接规则为空")
+                source.removeGroup(appCtx.getString(R.string.search_rule_empty))
                 val searchBooks = WebBook.searchBookAwait(source, searchWord)
                 if (searchBooks.isEmpty()) {
-                    source.addGroup("搜索失效")
+                    source.addGroup(appCtx.getString(R.string.search_invalid))
                 } else {
-                    source.removeGroup("搜索失效")
+                    source.removeGroup(appCtx.getString(R.string.search_invalid))
                     checkBook(searchBooks.first().toBook(), source)
                 }
             } else {
-                source.addGroup("搜索链接规则为空")
+                source.addGroup(appCtx.getString(R.string.search_rule_empty))
             }
         }
         //校验发现书籍
@@ -177,14 +177,14 @@ class CheckSourceService : BaseService() {
                 !it.url.isNullOrBlank()
             }?.url
             if (url.isNullOrBlank()) {
-                source.addGroup("发现规则为空")
+                source.addGroup(appCtx.getString(R.string.discovery_rule_empty))
             } else {
-                source.removeGroup("发现规则为空")
+                source.removeGroup(appCtx.getString(R.string.discovery_rule_empty))
                 val exploreBooks = WebBook.exploreBookAwait(source, url)
                 if (exploreBooks.isEmpty()) {
-                    source.addGroup("发现失效")
+                    source.addGroup(appCtx.getString(R.string.discovery_invalid))
                 } else {
-                    source.removeGroup("发现失效")
+                    source.removeGroup(appCtx.getString(R.string.discovery_invalid))
                     checkBook(exploreBooks.first().toBook(), source, false)
                 }
             }
@@ -228,16 +228,16 @@ class CheckSourceService : BaseService() {
                 needSave = false
             )
         }.onFailure {
-            val bookType = if (isSearchBook) "搜索" else "发现"
+            val bookType = if (isSearchBook) appCtx.getString(R.string.search) else appCtx.getString(R.string.discovery)
             when (it) {
-                is ContentEmptyException -> source.addGroup("${bookType}正文失效")
-                is TocEmptyException -> source.addGroup("${bookType}目录失效")
+                is ContentEmptyException -> source.addGroup(appCtx.getString(R.string.content_invalid, bookType))
+                is TocEmptyException -> source.addGroup(appCtx.getString(R.string.toc_invalid, bookType))
                 else -> throw it
             }
         }.onSuccess {
-            val bookType = if (isSearchBook) "搜索" else "发现"
-            source.removeGroup("${bookType}目录失效")
-            source.removeGroup("${bookType}正文失效")
+            val bookType = if (isSearchBook) appCtx.getString(R.string.search) else appCtx.getString(R.string.discovery)
+            source.removeGroup(appCtx.getString(R.string.toc_invalid, bookType))
+            source.removeGroup(appCtx.getString(R.string.content_invalid, bookType))
         }
     }
 

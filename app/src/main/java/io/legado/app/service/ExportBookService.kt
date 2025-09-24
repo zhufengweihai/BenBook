@@ -170,7 +170,7 @@ class ExportBookService : BaseService() {
         exportJob = lifecycleScope.launch(IO) {
             while (isActive) {
                 val (bookUrl, exportConfig) = waitExportBooks.entries.firstOrNull() ?: let {
-                    notificationContentText = "导出完成"
+                    notificationContentText = getString(R.string.export_completed)
                     upExportNotification(true)
                     return@launch
                 }
@@ -178,7 +178,12 @@ class ExportBookService : BaseService() {
                 waitExportBooks.remove(bookUrl)
                 val book = appDb.bookDao.getBook(bookUrl)
                 try {
-                    book ?: throw NoStackTraceException("获取${bookUrl}书籍出错")
+                    book ?: throw NoStackTraceException(
+                        appCtx.getString(
+                            R.string.get_book_error,
+                            bookUrl
+                        )
+                    )
                     refreshChapterList(book)
                     notificationContentText = getString(
                         R.string.export_book_notification_content,
@@ -202,7 +207,7 @@ class ExportBookService : BaseService() {
                 } catch (e: Throwable) {
                     ensureActive()
                     exportMsg[bookUrl] = e.localizedMessage ?: "ERROR"
-                    AppLog.put("导出书籍<${book?.name ?: bookUrl}>出错", e)
+                    AppLog.put(appCtx.getString(R.string.export_book_error, book?.name ?: bookUrl), e)
                 } finally {
                     exportProgress.remove(bookUrl)
                     postEvent(EventBus.EXPORT_BOOK, bookUrl)
@@ -720,7 +725,13 @@ class ExportBookService : BaseService() {
             }
             // val totalChapterNum = book.totalChapterNum / scope.size
             if (chapterList.isEmpty()) {
-                throw RuntimeException("书籍<${book.name}>(${epubBookIndex + 1})未找到章节信息")
+                throw RuntimeException(
+                    appCtx.getString(
+                        R.string.no_chapter_info,
+                        book.name,
+                        epubBookIndex + 1
+                    )
+                )
             }
             chapterList = chapterList.subList(
                 epubBookIndex * size,
@@ -865,7 +876,7 @@ class ExportBookService : BaseService() {
                 val left = v[0].toInt()
                 val right = v[1].toInt()
                 if (left > right) {
-                    AppLog.put("Error expression : $s; left > right")
+                    AppLog.put(appCtx.getString(R.string.error_expression, s))
                     continue
                 }
                 for (i in left..right)

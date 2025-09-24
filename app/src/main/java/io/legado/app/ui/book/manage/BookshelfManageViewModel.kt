@@ -23,6 +23,7 @@ import io.legado.app.utils.toastOnUi
 import io.legado.app.utils.writeToOutputStream
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.ensureActive
+import splitties.init.appCtx
 import java.io.File
 
 
@@ -90,19 +91,19 @@ class BookshelfManageViewModel(application: Application) : BaseViewModel(applica
                 if (book.origin == source.bookSourceUrl) return@forEachIndexed
                 val newBook = WebBook.preciseSearchAwait(source, book.name, book.author)
                     .onFailure {
-                        AppLog.put("搜索书籍出错\n${it.localizedMessage}", it, true)
+                        AppLog.put(appCtx.getString(R.string.search_book_error, it.localizedMessage), it, true)
                     }.getOrNull() ?: return@forEachIndexed
                 kotlin.runCatching {
                     if (newBook.tocUrl.isEmpty()) {
                         WebBook.getBookInfoAwait(source, newBook)
                     }
                 }.onFailure {
-                    AppLog.put("获取书籍详情出错\n${it.localizedMessage}", it, true)
+                    AppLog.put(appCtx.getString(R.string.get_book_info_error, it.localizedMessage), it, true)
                     return@forEachIndexed
                 }
                 WebBook.getChapterListAwait(source, newBook)
                     .onFailure {
-                        AppLog.put("获取目录出错\n${it.localizedMessage}", it, true)
+                        AppLog.put(appCtx.getString(R.string.get_toc_error, it.localizedMessage), it, true)
                     }.getOrNull()?.let { toc ->
                         book.migrateTo(newBook, toc)
                         book.removeType(BookType.updateError)

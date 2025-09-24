@@ -1,6 +1,7 @@
 package io.legado.app.ui.book.import.local
 
 import android.app.Application
+import io.legado.app.R
 import io.legado.app.base.BaseViewModel
 import io.legado.app.constant.AppLog
 import io.legado.app.constant.AppPattern.archiveFileRegex
@@ -28,6 +29,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.takeWhile
 import kotlinx.coroutines.withContext
+import splitties.init.appCtx
 import java.util.Collections
 
 class ImportBookViewModel(application: Application) : BaseViewModel(application) {
@@ -97,10 +99,10 @@ class ImportBookViewModel(application: Application) : BaseViewModel(application)
             }
             LocalBook.importFiles(fileUris)
         }.onError {
-            context.toastOnUi("添加书架失败，请尝试重新选择文件夹")
-            AppLog.put("添加书架失败\n${it.localizedMessage}", it)
+            context.toastOnUi(R.string.add_to_shelf_failed)
+            AppLog.put(appCtx.getString(R.string.get_file_list_error, it.localizedMessage), it)
         }.onSuccess {
-            context.toastOnUi("添加书架成功")
+            context.toastOnUi(R.string.add_to_shelf_success)
         }.onFinally {
             finally.invoke()
         }
@@ -127,7 +129,7 @@ class ImportBookViewModel(application: Application) : BaseViewModel(application)
             }
             dataCallback?.setItems(docList!!)
         }.onError {
-            context.toastOnUi("获取文件列表出错\n${it.localizedMessage}")
+            context.toastOnUi(appCtx.getString(R.string.get_file_list_error, it.localizedMessage))
         }
     }
 
@@ -157,7 +159,7 @@ class ImportBookViewModel(application: Application) : BaseViewModel(application)
             }.takeWhile {
                 n > 0
             }.catch {
-                context.toastOnUi("扫描文件夹出错\n${it.localizedMessage}")
+                context.toastOnUi(appCtx.getString(R.string.scan_folder_error, it.localizedMessage))
             }.collect()
     }
 

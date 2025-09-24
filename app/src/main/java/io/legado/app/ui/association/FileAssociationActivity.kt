@@ -120,7 +120,7 @@ class FileAssociationActivity :
                     .onGranted {
                         viewModel.dispatchIntent(data)
                     }.onDenied {
-                        toastOnUi("请求存储权限失败。")
+                        toastOnUi(getString(R.string.request_storage_failed))
                         handler.postDelayed(2000) {
                             finish()
                         }
@@ -204,7 +204,7 @@ class FileAssociationActivity :
                     }
 
                     else -> {
-                        val msg = "导入书籍失败\n${it.localizedMessage}"
+                        val msg = appCtx.getString(R.string.import_book_failed, it.localizedMessage)
                         AppLog.put(msg, it)
                         toastOnUi(msg)
                         handler.postDelayed(2000) {

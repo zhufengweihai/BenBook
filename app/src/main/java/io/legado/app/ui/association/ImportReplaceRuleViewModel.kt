@@ -2,6 +2,7 @@ package io.legado.app.ui.association
 
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
+import io.legado.app.R
 import io.legado.app.base.BaseViewModel
 import io.legado.app.constant.AppConst
 import io.legado.app.constant.AppLog
@@ -18,6 +19,7 @@ import io.legado.app.utils.isAbsUrl
 import io.legado.app.utils.isJsonArray
 import io.legado.app.utils.isJsonObject
 import io.legado.app.utils.splitNotBlank
+import splitties.init.appCtx
 
 class ImportReplaceRuleViewModel(app: Application) : BaseViewModel(app) {
     var isAddGroup = false
@@ -82,8 +84,8 @@ class ImportReplaceRuleViewModel(app: Application) : BaseViewModel(app) {
         execute {
             importAwait(text.trim())
         }.onError {
-            errorLiveData.postValue("ImportError:${it.localizedMessage}")
-            AppLog.put("ImportError:${it.localizedMessage}", it)
+            errorLiveData.postValue(appCtx.getString(R.string.import_error, it.localizedMessage))
+            AppLog.put(appCtx.getString(R.string.import_error, it.localizedMessage), it)
         }.onSuccess {
             comparisonSource()
         }
@@ -102,7 +104,7 @@ class ImportReplaceRuleViewModel(app: Application) : BaseViewModel(app) {
                 allRules.add(rule)
             }
 
-            else -> throw NoStackTraceException("格式不对")
+            else -> throw NoStackTraceException(appCtx.getString(R.string.format_error))
         }
     }
 

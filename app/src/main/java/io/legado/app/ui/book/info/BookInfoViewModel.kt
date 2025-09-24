@@ -43,6 +43,7 @@ import io.legado.app.utils.postEvent
 import io.legado.app.utils.toastOnUi
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
+import splitties.init.appCtx
 
 class BookInfoViewModel(application: Application) : BaseViewModel(application) {
     val bookData = MutableLiveData<Book>()
@@ -74,7 +75,7 @@ class BookInfoViewModel(application: Application) : BaseViewModel(application) {
                 upBook(it)
                 return@execute
             }
-            throw NoStackTraceException("未找到书籍")
+            throw NoStackTraceException(appCtx.getString(R.string.book_not_found))
         }.onError {
             AppLog.put(it.localizedMessage, it)
             context.toastOnUi(it.localizedMessage)
@@ -269,7 +270,7 @@ class BookInfoViewModel(application: Application) : BaseViewModel(application) {
         execute {
             webFiles.clear()
             val fileNameNoExtension = if (book.author.isBlank()) book.name
-            else "${book.name} 作者：${book.author}"
+            else context.getString(R.string.author_label, book.name, book.author)
             book.downloadUrls!!.map {
                 val analyzeUrl = AnalyzeUrl(
                     it, source = bookSource,
@@ -280,7 +281,7 @@ class BookInfoViewModel(application: Application) : BaseViewModel(application) {
                 WebFile(it, mFileName)
             }
         }.onError {
-            context.toastOnUi("LoadWebFileError\n${it.localizedMessage}")
+            context.toastOnUi(appCtx.getString(R.string.load_web_file_error, it.localizedMessage))
         }.onSuccess {
             webFiles.addAll(it)
         }
@@ -312,8 +313,8 @@ class BookInfoViewModel(application: Application) : BaseViewModel(application) {
             when (it) {
                 is NoBooksDirException -> actionLive.postValue("selectBooksDir")
                 else -> {
-                    AppLog.put("ImportWebFileError\n${it.localizedMessage}", it)
-                    context.toastOnUi("ImportWebFileError\n${it.localizedMessage}")
+                    AppLog.put(appCtx.getString(R.string.import_web_file_error, it.localizedMessage), it)
+                    context.toastOnUi(appCtx.getString(R.string.import_web_file_error, it.localizedMessage))
                     webFiles.remove(webFile)
                 }
             }
@@ -328,8 +329,8 @@ class BookInfoViewModel(application: Application) : BaseViewModel(application) {
                 AppPattern.bookFileRegex.matches(it)
             }
         }.onError {
-            AppLog.put("getArchiveEntriesName Error:\n${it.localizedMessage}", it)
-            context.toastOnUi("getArchiveEntriesName Error:\n${it.localizedMessage}")
+            AppLog.put(appCtx.getString(R.string.get_archive_entries_error, it.localizedMessage), it)
+            context.toastOnUi(appCtx.getString(R.string.get_archive_entries_error, it.localizedMessage))
         }.onSuccess {
             onSuccess.invoke(it)
         }
@@ -352,8 +353,8 @@ class BookInfoViewModel(application: Application) : BaseViewModel(application) {
             val book = changeToLocalBook(it)
             success?.invoke(book)
         }.onError {
-            AppLog.put("importArchiveBook Error:\n${it.localizedMessage}", it)
-            context.toastOnUi("importArchiveBook Error:\n${it.localizedMessage}")
+            AppLog.put(appCtx.getString(R.string.import_archive_book_error, it.localizedMessage), it)
+            context.toastOnUi(appCtx.getString(R.string.import_archive_book_error, it.localizedMessage))
         }
     }
 
@@ -449,7 +450,7 @@ class BookInfoViewModel(application: Application) : BaseViewModel(application) {
     fun getBook(toastNull: Boolean = true): Book? {
         val book = bookData.value
         if (toastNull && book == null) {
-            context.toastOnUi("book is null")
+            context.toastOnUi(R.string.book_is_null)
         }
         return book
     }
@@ -480,7 +481,7 @@ class BookInfoViewModel(application: Application) : BaseViewModel(application) {
         }.onSuccess {
             context.toastOnUi(R.string.clear_cache_success)
         }.onError {
-            context.toastOnUi("清理缓存出错\n${it.localizedMessage}")
+            context.toastOnUi(context.getString(R.string.clear_cache_error, it.localizedMessage))
         }
     }
 

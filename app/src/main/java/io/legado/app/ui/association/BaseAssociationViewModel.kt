@@ -3,10 +3,12 @@ package io.legado.app.ui.association
 import android.app.Application
 import android.net.Uri
 import androidx.lifecycle.MutableLiveData
+import io.legado.app.R
 import io.legado.app.base.BaseViewModel
 import io.legado.app.utils.contains
 import io.legado.app.utils.inputStream
 import io.legado.app.utils.readText
+import splitties.init.appCtx
 
 abstract class BaseAssociationViewModel(application: Application) : BaseViewModel(application) {
 
@@ -36,7 +38,7 @@ abstract class BaseAssociationViewModel(application: Application) : BaseViewMode
                 successLive.postValue(Pair("txtRule", json))
             json.contains("name") && json.contains("url") ->
                 successLive.postValue(Pair("httpTts", json))
-            else -> errorLive.postValue("格式不对")
+            else -> errorLive.postValue(appCtx.getString(R.string.format_error))
         }
     }
 

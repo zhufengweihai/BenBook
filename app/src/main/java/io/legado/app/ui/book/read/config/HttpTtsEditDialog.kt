@@ -89,11 +89,11 @@ class HttpTtsEditDialog() : BaseDialogFragment(R.layout.dialog_http_tts_edit, tr
     override fun onMenuItemClick(item: MenuItem?): Boolean {
         when (item?.itemId) {
             R.id.menu_save -> viewModel.save(dataFromView()) {
-                toastOnUi("保存成功")
+                toastOnUi(R.string.save_success)
             }
             R.id.menu_login -> dataFromView().let { httpTts ->
                 if (httpTts.loginUrl.isNullOrBlank()) {
-                    toastOnUi("登录url不能为空")
+                    toastOnUi(R.string.login_url_empty)
                 } else {
                     viewModel.save(httpTts) {
                         startActivity<SourceLoginActivity> {

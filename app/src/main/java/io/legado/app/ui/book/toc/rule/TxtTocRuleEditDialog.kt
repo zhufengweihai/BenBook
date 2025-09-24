@@ -19,6 +19,7 @@ import io.legado.app.lib.theme.primaryColor
 import io.legado.app.utils.*
 import io.legado.app.utils.viewbindingdelegate.viewBinding
 import kotlinx.coroutines.Dispatchers
+import splitties.init.appCtx
 import java.util.regex.Pattern
 import java.util.regex.PatternSyntaxException
 
@@ -74,14 +75,14 @@ class TxtTocRuleEditDialog() : BaseDialogFragment(R.layout.dialog_toc_regex_edit
 
     private fun checkValid(tocRule: TxtTocRule): Boolean {
         if (tocRule.name.isEmpty()) {
-            toastOnUi("名称不能为空")
+            toastOnUi(appCtx.getString(R.string.toc_rule_name_empty))
             return false
         }
 
         try {
             Pattern.compile(tocRule.rule, Pattern.MULTILINE)
         } catch (ex: PatternSyntaxException) {
-            AppLog.put("正则语法错误或不支持(txt)：${ex.localizedMessage}", ex, true)
+            AppLog.put(appCtx.getString(R.string.toc_rule_regex_error, ex.localizedMessage), ex, true)
             return false
         }
 
@@ -124,14 +125,14 @@ class TxtTocRuleEditDialog() : BaseDialogFragment(R.layout.dialog_toc_regex_edit
             execute(context = Dispatchers.Main) {
                 val text = context.getClipText()
                 if (text.isNullOrBlank()) {
-                    throw NoStackTraceException("剪贴板为空")
+                    throw NoStackTraceException(appCtx.getString(R.string.clipboard_empty))
                 }
                 GSON.fromJsonObject<TxtTocRule>(text).getOrNull()
-                    ?: throw NoStackTraceException("格式不对")
+                    ?: throw NoStackTraceException(appCtx.getString(R.string.format_error))
             }.onSuccess {
                 success.invoke(it)
             }.onError {
-                context.toastOnUi(it.localizedMessage ?: "Error")
+                context.toastOnUi(it.localizedMessage ?: appCtx.getString(R.string.error))
                 it.printOnDebug()
             }
         }

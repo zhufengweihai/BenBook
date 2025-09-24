@@ -2,6 +2,7 @@ package io.legado.app.ui.book.import.remote
 
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
+import io.legado.app.R
 import io.legado.app.base.BaseViewModel
 import io.legado.app.constant.AppLog
 import io.legado.app.constant.BookType
@@ -21,6 +22,7 @@ import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
+import splitties.init.appCtx
 import java.util.Collections
 
 class RemoteBookViewModel(application: Application) : BaseViewModel(application) {
@@ -105,9 +107,9 @@ class RemoteBookViewModel(application: Application) : BaseViewModel(application)
             }
             isDefaultWebdav = true
             remoteBookWebDav = AppWebDav.defaultBookWebDav
-                ?: throw NoStackTraceException("webDav没有配置")
+                ?: throw NoStackTraceException(appCtx.getString(R.string.webdav_no_config))
         }.onError {
-            context.toastOnUi("初始化webDav出错:${it.localizedMessage}")
+            context.toastOnUi(appCtx.getString(R.string.webdav_init_error, it.localizedMessage))
         }.onSuccess {
             onSuccess.invoke()
         }
@@ -116,14 +118,14 @@ class RemoteBookViewModel(application: Application) : BaseViewModel(application)
     fun loadRemoteBookList(path: String?, loadCallback: (loading: Boolean) -> Unit) {
         executeLazy {
             val bookWebDav = remoteBookWebDav
-                ?: throw NoStackTraceException("没有配置webDav")
+                ?: throw NoStackTraceException(appCtx.getString(R.string.no_config))
             dataCallback?.clear()
             val url = path ?: bookWebDav.rootBookUrl
             val bookList = bookWebDav.getRemoteBookList(url)
             dataCallback?.setItems(bookList)
         }.onError {
-            AppLog.put("获取webDav书籍出错\n${it.localizedMessage}", it)
-            context.toastOnUi("获取webDav书籍出错\n${it.localizedMessage}")
+            AppLog.put(appCtx.getString(R.string.webdav_get_book_list_error, it.localizedMessage), it)
+            context.toastOnUi(appCtx.getString(R.string.webdav_get_book_list_error, it.localizedMessage))
         }.onStart {
             loadCallback.invoke(true)
         }.onFinally {
@@ -134,7 +136,7 @@ class RemoteBookViewModel(application: Application) : BaseViewModel(application)
     fun addToBookshelf(remoteBooks: HashSet<RemoteBook>, finally: () -> Unit) {
         execute {
             val bookWebDav = remoteBookWebDav
-                ?: throw NoStackTraceException("没有配置webDav")
+                ?: throw NoStackTraceException(appCtx.getString(R.string.no_config))
             remoteBooks.forEach { remoteBook ->
                 val downloadBookUri = bookWebDav.downloadRemoteBook(remoteBook)
                 LocalBook.importFiles(downloadBookUri).forEach { book ->
@@ -146,8 +148,8 @@ class RemoteBookViewModel(application: Application) : BaseViewModel(application)
                 remoteBook.isOnBookShelf = true
             }
         }.onError {
-            AppLog.put("导入出错\n${it.localizedMessage}", it)
-            context.toastOnUi("导入出错\n${it.localizedMessage}")
+            AppLog.put(appCtx.getString(R.string.import_book_failed, it.localizedMessage), it)
+            context.toastOnUi(appCtx.getString(R.string.import_book_failed, it.localizedMessage))
             if (it is SecurityException) {
                 permissionDenialLiveData.postValue(1)
             }
