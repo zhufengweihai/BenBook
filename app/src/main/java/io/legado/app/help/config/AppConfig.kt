@@ -694,5 +694,10 @@ object AppConfig : SharedPreferences.OnSharedPreferenceChangeListener {
             appCtx.putPrefBoolean(PreferKey.enableMangaGray, value)
         }
 
+    var bookSourceUrl: String?
+        get() = appCtx.getPrefString(PreferKey.bookSourceUrl)
+        set(value) {
+            appCtx.putPrefString(PreferKey.bookSourceUrl, value)
+        }
 }
 

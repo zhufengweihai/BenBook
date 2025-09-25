@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <io.legado.app.ui.widget.TitleBar
+            android:id="@+id/title_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:attachToActivity="true"
+            app:contentInsetStartWithNavigation="0dp"
+            app:contentLayout="@layout/view_search"
+            app:title="@string/book_source" />
+
+        <TextView
+            android:id="@+id/tv_book_source"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingVertical="16dp"
+            android:singleLine="true"
+            android:textColor="@color/primaryText" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/ic_divider" />
+
+        <com.google.android.flexbox.FlexboxLayout
+            android:id="@+id/flexbox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:clipToPadding="false"
+            android:overScrollMode="never"
+            android:padding="3dp"
+            android:visibility="gone"
+            app:dividerDrawable="@drawable/shape_space_divider"
+            app:flexDirection="row"
+            app:flexWrap="wrap"
+            app:showDivider="middle" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginVertical="16dp"
+            android:background="@drawable/ic_divider" />
+
+        <TextView
+            android:id="@+id/tv_more_source"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/shape_radius_10dp"
+            android:gravity="center"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="5dp"
+            android:text="@string/more_book_sources"
+            android:textColor="@color/accent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+    </LinearLayout>
+</ScrollView>
