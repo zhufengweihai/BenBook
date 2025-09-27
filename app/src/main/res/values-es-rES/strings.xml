@@ -568,7 +568,6 @@
     <string name="help">Ayuda</string>
     <string name="my">Mío</string>
     <string name="reading">Lecturas</string>
-    <string name="battery_show">%d%%</string>
     <string name="timer_m">%d min</string>
     <string name="read_aloud_by_page">Leer por páginas</string>
     <string name="brightness_auto">Auto-Brightness %s</string>
@@ -595,7 +594,6 @@
     <string name="export">Exportar</string>
     <string name="load_toc">Cargar capítulos</string>
     <string name="load_info">Cargar detalles del libro</string>
-    <string name="tts">TTS</string>
     <string name="web_dav_pw">Contraseña de WebDav</string>
     <string name="web_dav_pw_s">Ingrese su contraseña de WebDav</string>
     <string name="web_dav_url_s">Ingrese la dirección de su servidor</string>
@@ -635,7 +633,6 @@
     <string name="auto_dark_mode_s">Sigue el modo oscuro del sistema</string>
     <string name="go_back">Atrás</string>
     <string name="tone_colour">Tono de voz en línea</string>
-    <string name="select_count">(%1$d/%2$d)</string>
     <string name="show_rss">Mostrar suscripción</string>
     <string name="service_stop">Servicio detenido</string>
     <string name="service_start">Iniciando el servicio\nComprobando la barra de notificaciones para más detalles</string>
@@ -998,7 +995,6 @@
     <string name="import_tts">导入TTS</string>
     <string name="import_theme">导入主题</string>
     <string name="import_txt_toc_rule">导入txt目录规则</string>
-    <string name="auto_save_cookie">CookieJar</string>
     <string name="cookie">清除cookie</string>
     <string name="download_and_import_file">导入在线书籍文件</string>
     <string name="upload_book_success">Upload Success</string>

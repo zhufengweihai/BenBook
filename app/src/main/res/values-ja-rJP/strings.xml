@@ -572,7 +572,6 @@
     <string name="help">Help</string>
     <string name="my">Me</string>
     <string name="reading">Read</string>
-    <string name="battery_show">%d%%</string>
     <string name="timer_m">%d min</string>
     <string name="brightness_auto">Auto-Brightness %s</string>
     <string name="read_aloud_by_page">Speak by pages</string>
@@ -599,7 +598,6 @@
     <string name="export">Export</string>
     <string name="load_toc">Load chapters</string>
     <string name="load_info">Load book detail</string>
-    <string name="tts">TTS</string>
     <string name="web_dav_pw">WebDav password</string>
     <string name="web_dav_pw_s">Input you WebDav authorized password</string>
     <string name="web_dav_url_s">Input you server address</string>
@@ -639,7 +637,6 @@
     <string name="auto_dark_mode_s">Following system dark mode</string>
     <string name="go_back">Go back</string>
     <string name="tone_colour">Online Speech tone</string>
-    <string name="select_count">(%1$d/%2$d)</string>
     <string name="show_rss">Display Subscription</string>
     <string name="service_stop">Service stopped</string>
     <string name="service_start">Starting service\nChecking notification bar for details</string>
@@ -1001,7 +998,6 @@
     <string name="import_tts">导入TTS</string>
     <string name="import_theme">导入主题</string>
     <string name="import_txt_toc_rule">导入txt目录规则</string>
-    <string name="auto_save_cookie">CookieJar</string>
     <string name="cookie">清除cookie</string>
     <string name="download_and_import_file">导入在线书籍文件</string>
     <string name="upload_book_success">Upload Success</string>

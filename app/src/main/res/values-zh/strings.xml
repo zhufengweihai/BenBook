@@ -1,7 +1,7 @@
 <resources>
     <!--App-->
     <string name="app_name">开卷小说</string>
-    <string name="app_name_a">开卷小说·A</string>
+    <string name="app_name_a">开卷小说</string>
     <string name="receiving_shared_label">开卷小说·搜索</string>
     <string name="tip_perm_request_storage">开卷小说需要访问存储卡权限，请前往“设置”—“应用权限”，打开所需权限</string>
 
@@ -157,27 +157,26 @@
     <string name="set_timer">定时</string>
     <string name="read_aloud_pause">朗读暂停</string>
     <string name="read_aloud_timer">正在朗读（还剩 %d 分钟）</string>
-    <string name="playing_timer">正在播放（还剩 %d 分钟）</string>
-    <string name="ps_hide_navigation_bar">阅读界面隐藏虚拟按键</string>
-    <string name="pt_hide_navigation_bar">隐藏导航栏</string>
-    <string name="re_navigation_bar_color">导航栏颜色</string>
-    <string name="scoring">评分</string>
-    <string name="send_mail">发送邮件</string>
-    <string name="can_not_open">无法打开</string>
-    <string name="can_not_share">分享失败</string>
-    <string name="no_chapter">无章节</string>
-    <string name="add_url">添加网址</string>
-    <string name="add_book_url">添加书籍网址</string>
-    <string name="background">背景</string>
-    <string name="author">作者</string>
-    <string name="author_show">作者：%s</string>
-    <string name="aloud_stop">朗读停止</string>
-    <string name="clear_cache">清理缓存</string>
-    <string name="clear_cache_success">成功清理缓存</string>
-    <string name="action_save">保存</string>
-    <string name="edit_source">编辑源</string>
-    <string name="edit_book_source">编辑书源</string>
-    <string name="disable_book_source">禁用书源</string>
+    <string name="playing_timer">导入替换规则失败</string>
+    <string name="pt_hide_navigation_bar">未找到替换规则</string>
+    <string name="re_navigation_bar_color">导出完成</string>
+    <string name="scoring">添加失败,请手动添加</string>
+    <string name="send_mail">添加书架失败，请尝试重新选择文件夹</string>
+    <string name="can_not_open">扫描文件夹出错</string>
+    <string name="can_not_share">%s</string>
+    <string name="no_chapter">搜索书籍出错</string>
+    <string name="add_url">%s</string>
+    <string name="add_book_url">获取书籍详情出错</string>
+    <string name="background">%s</string>
+    <string name="author">获取目录出错</string>
+    <string name="author_show">%s</string>
+    <string name="aloud_stop">上传Url不能为空</string>
+    <string name="clear_cache">下载Url规则不能为空</string>
+    <string name="clear_cache_success">注释不能为空</string>
+    <string name="action_save">result</string>
+    <string name="edit_source">添加网址失败</string>
+    <string name="edit_book_source">添加网址出错</string>
+    <string name="disable_book_source">%s</string>
     <string name="add_book_source">新建书源</string>
     <string name="add_rss_source">新建订阅源</string>
     <string name="book_file_selector">添加书籍</string>
@@ -639,7 +638,6 @@
     <string name="auto_dark_mode_s">夜间模式跟随系统</string>
     <string name="go_back">上级</string>
     <string name="tone_colour">在线朗读音色</string>
-    <string name="select_count">（%1$d/%2$d）</string>
     <string name="show_rss">显示订阅</string>
     <string name="service_stop">服务已停止</string>
     <string name="service_start">正在启动服务\n具体信息请查看通知栏</string>
@@ -1003,7 +1001,6 @@
     <string name="import_tts">导入 TTS</string>
     <string name="import_theme">导入主题</string>
     <string name="import_txt_toc_rule">导入 txt 目录规则</string>
-    <string name="auto_save_cookie">CookieJar</string>
     <string name="cookie">清除 Cookie</string>
     <string name="download_and_import_file">导入在线书籍文件</string>
     <string name="upload_book_success">上传成功</string>
@@ -1227,4 +1224,5 @@
     <string name="disable_horizontal_animation">禁用水平滚动动画</string>
     <string name="enable_manga_gray">开启图片灰色</string>
     <string name="play_mode">播放模式</string>
+    <string name="more_book_sources">更多书源</string>
 </resources>

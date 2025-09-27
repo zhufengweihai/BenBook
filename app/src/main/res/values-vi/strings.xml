@@ -566,7 +566,6 @@
     <string name="help">Trợ giúp</string>
     <string name="my">Của tôi</string>
     <string name="reading">Đọc</string>
-    <string name="battery_show">%d%%</string>
     <string name="timer_m">%d phút</string>
     <string name="brightness_auto">Độ sáng tự động %s</string>
     <string name="read_aloud_by_page">Đọc theo trang</string>
@@ -593,7 +592,6 @@
     <string name="export">Xuất</string>
     <string name="load_toc">Tải chương</string>
     <string name="load_info">Tải chi tiết sách</string>
-    <string name="tts">TTS</string>
     <string name="web_dav_pw">Mật khẩu WebDav</string>
     <string name="web_dav_pw_s">Nhập mật khẩu WebDav của bạn</string>
     <string name="web_dav_url_s">Nhập địa chỉ máy chủ của bạn</string>
@@ -633,7 +631,6 @@
     <string name="auto_dark_mode_s">Theo chế độ tối của hệ thống</string>
     <string name="go_back">Quay lại</string>
     <string name="tone_colour">Âm sắc đọc trực tuyến</string>
-    <string name="select_count">(%1$d/%2$d)</string>
     <string name="show_rss">Hiển thị nguồn cấp RSS</string>
     <string name="service_stop">Dịch vụ đã dừng</string>
     <string name="service_start">Đang khởi động dịch vụ\nKiểm tra thanh thông báo để biết chi tiết</string>
@@ -996,7 +993,6 @@
     <string name="import_tts">Nhập TTS</string>
     <string name="import_theme">Nhập chủ đề</string>
     <string name="import_txt_toc_rule">Nhập quy tắc thư mục txt</string>
-    <string name="auto_save_cookie">CookieJar</string>
     <string name="cookie">Xóa cookie</string>
     <string name="download_and_import_file">Nhập tệp sách trực tuyến</string>
     <string name="upload_book_success">Tải lên thành công</string>

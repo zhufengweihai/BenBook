@@ -4,7 +4,7 @@
         <item>文字</item>
         <item>音訊</item>
         <item>圖片</item>
-        <item>資料</item>
+        <item>檔</item>
     </string-array>
 
     <string-array name="group_style">
@@ -16,7 +16,7 @@
         <item>跟隨系統</item>
         <item>亮色主題</item>
         <item>暗色主題</item>
-        <item>E-Ink(墨水螢幕)</item>
+        <item>E-Ink(墨水屏)</item>
     </string-array>
 
     <string-array name="NavBarColors">
@@ -34,11 +34,12 @@
         <item>常亮</item>
     </string-array>
 
+
     <string-array name="double_page_title">
         <item>全域單頁</item>
         <item>全域雙頁</item>
-        <item>橫向雙頁</item>
-        <item>平板/橫向雙頁</item>
+        <item>橫屏雙頁</item>
+        <item>平板/橫屏雙頁</item>
     </string-array>
 
     <string-array name="chinese_mode">
@@ -84,7 +85,7 @@
     <string-array name="rule_type">
         <item>書源</item>
         <item>訂閱源</item>
-        <item>取代規則</item>
+        <item>替換規則</item>
     </string-array>
 
     <string-array name="tip_color">
