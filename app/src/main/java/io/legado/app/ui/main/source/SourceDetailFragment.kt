@@ -34,9 +34,16 @@ import kotlinx.coroutines.launch
 class SourceDetailFragment() : VMBaseFragment<SourceDetailViewModel>(R.layout.fragment_source_detail),
     MainFragmentInterface {
 
+    constructor(position: Int) : this() {
+        val bundle = Bundle()
+        bundle.putInt("position", position)
+        arguments = bundle
+    }
+
     constructor(bookSourceUrl: String) : this() {
         val bundle = Bundle()
         bundle.putString("bookSourceUrl", bookSourceUrl)
+        bundle.putBoolean("attachToActivity", true)
         arguments = bundle
     }
 

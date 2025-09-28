@@ -2,6 +2,7 @@
 
 package io.legado.app.ui.main
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.format.DateUtils
 import android.view.MenuItem
@@ -58,6 +59,8 @@ import kotlinx.coroutines.withContext
 import splitties.views.bottomPadding
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
+import androidx.core.view.get
+import io.legado.app.ui.main.source.SourceDetailFragment
 
 /**
  * 主界面
@@ -72,7 +75,7 @@ class MainActivity : VMBaseActivity<ActivityMainBinding, MainViewModel>(),
     private val idBookshelf1 = 11
     private val idBookshelf2 = 12
     private val idExplore = 1
-    private val idRss = 2
+    private val idDiscovery = 2
     private val idMy = 3
     private var exitTime: Long = 0
     private var bookshelfReselected: Long = 0
@@ -80,7 +83,7 @@ class MainActivity : VMBaseActivity<ActivityMainBinding, MainViewModel>(),
     private var pagePosition = 0
     private val fragmentMap = hashMapOf<Int, Fragment>()
     private var bottomMenuCount = 4
-    private val realPositions = arrayOf(idBookshelf, idExplore, idRss, idMy)
+    private val realPositions = arrayOf(idBookshelf, idExplore, idDiscovery, idMy)
     private val adapter by lazy {
         TabFragmentPageAdapter(supportFragmentManager)
     }
@@ -159,11 +162,11 @@ class MainActivity : VMBaseActivity<ActivityMainBinding, MainViewModel>(),
             R.id.menu_bookshelf ->
                 viewPagerMain.setCurrentItem(0, false)
 
-            R.id.menu_discovery ->
+            R.id.menu_explore ->
                 viewPagerMain.setCurrentItem(realPositions.indexOf(idExplore), false)
 
-            R.id.menu_rss ->
-                viewPagerMain.setCurrentItem(realPositions.indexOf(idRss), false)
+            R.id.menu_discovery ->
+                viewPagerMain.setCurrentItem(realPositions.indexOf(idDiscovery), false)
 
             R.id.menu_my_config ->
                 viewPagerMain.setCurrentItem(realPositions.indexOf(idMy), false)
@@ -369,7 +372,7 @@ class MainActivity : VMBaseActivity<ActivityMainBinding, MainViewModel>(),
         val showRss = AppConfig.showRSS
         binding.bottomNavigationView.menu.let { menu ->
             menu.findItem(R.id.menu_discovery).isVisible = showDiscovery
-            menu.findItem(R.id.menu_rss).isVisible = showRss
+            //menu.findItem(R.id.menu_rss).isVisible = showRss
         }
         var index = 0
         if (showDiscovery) {
@@ -378,7 +381,7 @@ class MainActivity : VMBaseActivity<ActivityMainBinding, MainViewModel>(),
         }
         if (showRss) {
             index++
-            realPositions[index] = idRss
+            //realPositions[index] = idRss
         }
         index++
         realPositions[index] = idMy
@@ -393,8 +396,8 @@ class MainActivity : VMBaseActivity<ActivityMainBinding, MainViewModel>(),
                 binding.viewPagerMain.setCurrentItem(realPositions.indexOf(idExplore), false)
             }
 
-            "rss" -> if (AppConfig.showRSS) {
-                binding.viewPagerMain.setCurrentItem(realPositions.indexOf(idRss), false)
+            "discovery" -> if (AppConfig.showRSS) {
+                binding.viewPagerMain.setCurrentItem(realPositions.indexOf(idDiscovery), false)
             }
 
             "my" -> binding.viewPagerMain.setCurrentItem(realPositions.indexOf(idMy), false)
@@ -411,10 +414,10 @@ class MainActivity : VMBaseActivity<ActivityMainBinding, MainViewModel>(),
 
     private inner class PageChangeCallback : ViewPager.SimpleOnPageChangeListener() {
 
+        @SuppressLint("UseKtx")
         override fun onPageSelected(position: Int) {
             pagePosition = position
-            binding.bottomNavigationView.menu
-                .getItem(realPositions[position]).isChecked = true
+            binding.bottomNavigationView.menu[realPositions[position]].isChecked = true
         }
 
     }
@@ -433,8 +436,8 @@ class MainActivity : VMBaseActivity<ActivityMainBinding, MainViewModel>(),
             val fragmentId = getId(position)
             if ((fragmentId == idBookshelf1 && any is BookshelfFragment1)
                 || (fragmentId == idBookshelf2 && any is BookshelfFragment2)
-                || (fragmentId == idExplore && any is ExploreFragment)
-                || (fragmentId == idRss && any is RssFragment)
+                || (fragmentId == idExplore && any is SourceDetailFragment)
+                || (fragmentId == idDiscovery && any is ExploreFragment)
                 || (fragmentId == idMy && any is MyFragment)
             ) {
                 return POSITION_UNCHANGED
@@ -446,8 +449,8 @@ class MainActivity : VMBaseActivity<ActivityMainBinding, MainViewModel>(),
             return when (getId(position)) {
                 idBookshelf1 -> BookshelfFragment1(position)
                 idBookshelf2 -> BookshelfFragment2(position)
-                idExplore -> ExploreFragment(position)
-                idRss -> RssFragment(position)
+                idExplore -> SourceDetailFragment(position)
+                idDiscovery -> ExploreFragment(position)
                 else -> MyFragment(position)
             }
         }
