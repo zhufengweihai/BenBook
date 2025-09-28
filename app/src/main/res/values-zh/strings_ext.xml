@@ -119,4 +119,6 @@
     <string name="result">结果</string>
     <string name="add_url_failed">添加网址失败</string>
     <string name="add_url_error">添加网址出错\n%s</string>
+    <string name="update">更新</string>
+    <string name="existing">已有</string>
 </resources>

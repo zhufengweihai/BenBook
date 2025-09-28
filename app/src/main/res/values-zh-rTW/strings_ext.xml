@@ -119,4 +119,6 @@
     <string name="result">結果</string>
     <string name="add_url_failed">新增網址失敗</string>
     <string name="add_url_error">新增網址出錯\n%s</string>
+    <string name="update">更新</string>
+    <string name="existing">已有</string>
 </resources>

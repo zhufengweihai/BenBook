@@ -120,4 +120,6 @@
     <string name="add_url_failed">Failed to add website</string>
     <string name="add_url_error">Error adding website\n%s</string>
     <string name="more_book_sources">more book sources</string>
+    <string name="update">update</string>
+    <string name="existing">Existing</string>
 </resources>
