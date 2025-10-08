@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import io.legado.app.R
 import io.legado.app.base.VMBaseFragment
+import io.legado.app.constant.AppConst
 import io.legado.app.constant.AppLog
 import io.legado.app.data.AppDatabase
 import io.legado.app.data.appDb
@@ -23,14 +24,17 @@ import io.legado.app.help.config.AppConfig
 import io.legado.app.lib.dialogs.alert
 import io.legado.app.lib.theme.primaryColor
 import io.legado.app.lib.theme.primaryTextColor
+import io.legado.app.ui.association.ImportBookSourceDialog
 import io.legado.app.ui.book.explore.ExploreShowActivity
 import io.legado.app.ui.book.search.SearchActivity
 import io.legado.app.ui.book.search.SearchScope
 import io.legado.app.ui.book.source.edit.BookSourceEditActivity
+import io.legado.app.ui.book.source.manage.BookSourceActivity
 import io.legado.app.ui.main.MainFragmentInterface
 import io.legado.app.utils.applyTint
 import io.legado.app.utils.flowWithLifecycleAndDatabaseChange
 import io.legado.app.utils.setEdgeEffectColor
+import io.legado.app.utils.showDialogFragment
 import io.legado.app.utils.startActivity
 import io.legado.app.utils.transaction
 import io.legado.app.utils.viewbindingdelegate.viewBinding
@@ -86,6 +90,11 @@ class ExploreFragment() : VMBaseFragment<ExploreViewModel>(R.layout.fragment_exp
         upGroupsMenu()
     }
 
+    override fun onResume() {
+        super.onResume()
+        importDefaultSources()
+        checkSources()
+    }
     override fun onPause() {
         super.onPause()
         searchView.clearFocus()
@@ -171,6 +180,7 @@ class ExploreFragment() : VMBaseFragment<ExploreViewModel>(R.layout.fragment_exp
         }
     }
 
+
     private fun upGroupsMenu() = groupsMenu?.transaction { subMenu ->
         subMenu.removeGroup(R.id.menu_group_text)
         groups.forEach {
@@ -237,4 +247,33 @@ class ExploreFragment() : VMBaseFragment<ExploreViewModel>(R.layout.fragment_exp
         }
     }
 
+    private fun importDefaultSources() {
+        val currentTime = System.currentTimeMillis()
+        if (currentTime - AppConfig.lastImportSourceTime > 7 * 24 * 3600 * 1000) {
+            alert(R.string.import_book_source) {
+                setMessage(getString(R.string.confirm_import_book_source))
+                okButton {
+                    AppConfig.lastImportSourceTime = currentTime
+                    showDialogFragment(
+                        ImportBookSourceDialog(AppConst.defaultImortUrl, true)
+                    )
+                }
+                cancelButton()
+            }
+        }
+    }
+
+    private fun checkSources() {
+        val currentTime = System.currentTimeMillis()
+        if (currentTime - AppConfig.lastCheckSourceTime > 7 * 24 * 3600 * 1000) {
+            alert(R.string.check_book_source) {
+                setMessage(getString(R.string.confirm_check_book_source))
+                okButton {
+                    AppConfig.lastCheckSourceTime = currentTime
+                    startActivity<BookSourceActivity>()
+                }
+                cancelButton()
+            }
+        }
+    }
 }

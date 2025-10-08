@@ -122,5 +122,7 @@
     <string name="more_book_sources">more book sources</string>
     <string name="update">update</string>
     <string name="existing">Existing</string>
-    <string name="source_invalid_tips">發現失效書源，已為您自動篩選！</string>
+    <string name="source_invalid_tips">Detected Invalid book sources and filtered out automatically!</string>
+    <string name="confirm_import_book_source">Do you want to import the build-in book sources?</string>
+    <string name="confirm_check_book_source">Do you want to check the book sources?</string>
 </resources>

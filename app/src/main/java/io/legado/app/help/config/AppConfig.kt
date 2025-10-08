@@ -699,5 +699,17 @@ object AppConfig : SharedPreferences.OnSharedPreferenceChangeListener {
         set(value) {
             appCtx.putPrefString(PreferKey.bookSourceUrl, value)
         }
+
+    var lastImportSourceTime: Long
+        get() = appCtx.getPrefLong(PreferKey.lastImportSourceTime)
+        set(value) {
+            appCtx.putPrefLong(PreferKey.lastImportSourceTime, value)
+        }
+
+    var lastCheckSourceTime: Long
+        get() = appCtx.getPrefLong(PreferKey.lastCheckSourceTime)
+        set(value) {
+            appCtx.putPrefLong(PreferKey.lastCheckSourceTime, value)
+        }
 }
 

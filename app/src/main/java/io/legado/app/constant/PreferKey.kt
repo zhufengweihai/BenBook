@@ -185,4 +185,6 @@ object PreferKey {
     const val readBarStyleFollowPage = "readBarStyleFollowPage"
     const val contentSelectSpeakMod = "contentReadAloudMod"
     const val bookSourceUrl = "bookSourceUrl"
+    const val lastImportSourceTime = "lastImportSourceTime"
+    const val lastCheckSourceTime = "lastCheckSourceTime"
 }

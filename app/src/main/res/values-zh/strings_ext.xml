@@ -122,4 +122,6 @@
     <string name="update">更新</string>
     <string name="existing">已有</string>
     <string name="source_invalid_tips">发现有失效书源，已为您自动筛选！</string>
+    <string name="confirm_import_book_source">是否导入自带书源？</string>
+    <string name="confirm_check_book_source">是否开始校验书源？</string>
 </resources>

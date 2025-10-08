@@ -121,5 +121,7 @@
     <string name="add_url_error">新增網址出錯\n%s</string>
     <string name="update">更新</string>
     <string name="existing">已有</string>
-    <string name="source_invalid_tips">Found invalid book sources, automatically filtered for you!</string>
+    <string name="source_invalid_tips">發現有失效書源，已為你自動篩選！</string>
+    <string name="confirm_import_book_source">是否導入自帶書源？</string>
+    <string name="confirm_check_book_source">是否開始校驗書源？</string>
 </resources>
