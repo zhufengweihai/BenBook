@@ -172,6 +172,7 @@ class ExportBookService : BaseService() {
                 val (bookUrl, exportConfig) = waitExportBooks.entries.firstOrNull() ?: let {
                     notificationContentText = getString(R.string.export_completed)
                     upExportNotification(true)
+                    stopSelf()
                     return@launch
                 }
                 exportProgress[bookUrl] = 0
